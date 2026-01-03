@@ -1,4 +1,5 @@
-let cards = {};
+// Зареждаме съществуващите карти от localStorage
+let cards = JSON.parse(localStorage.getItem("cards")) || {};
 
 function addCard() {
   const input = document.getElementById("cardName");
@@ -9,7 +10,13 @@ function addCard() {
   cards[name] = (cards[name] || 0) + 1;
   input.value = "";
 
+  save();
   render();
+}
+
+// Запазваме в localStorage
+function save() {
+  localStorage.setItem("cards", JSON.stringify(cards));
 }
 
 function render() {
@@ -22,3 +29,6 @@ function render() {
     list.appendChild(li);
   }
 }
+
+// Когато зареди сайта, рендираме съхранените карти
+render();
