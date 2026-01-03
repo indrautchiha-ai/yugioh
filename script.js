@@ -1,11 +1,11 @@
 // Зареждаме съществуващите карти от localStorage
 let cards = JSON.parse(localStorage.getItem("cards")) || {};
 
+// Добавяме карта
 function addCard() {
   const input = document.getElementById("cardName");
   const name = input.value.trim();
-
-  if (name === "") return;
+  if (!name) return;
 
   cards[name] = (cards[name] || 0) + 1;
   input.value = "";
@@ -19,6 +19,7 @@ function save() {
   localStorage.setItem("cards", JSON.stringify(cards));
 }
 
+// Рендираме списъка с карти
 function render() {
   const list = document.getElementById("list");
   list.innerHTML = "";
@@ -30,5 +31,7 @@ function render() {
   }
 }
 
-// Когато зареди сайта, рендираме съхранените карти
-render();
+// Уверяваме се, че render се извиква след зареждане на страницата
+window.onload = () => {
+  render();
+};
